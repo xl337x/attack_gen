@@ -43,3 +43,55 @@ python3 mimikatz_attack_generator.py <mimikatz_output.txt> [-t TARGET] [-d DC_IP
 ```bash
 python3 mimikatz_attack_generator.py dump.txt -t 10.10.10.5 -d 10.10.10.1 -o attacks.txt
 ```
+#for the 2mimika
+# Mimikatz Parser - Quick Usage
+
+## Basic Usage
+```bash
+python3 mimikatz_parser_enhanced.py <mimikatz_output.txt>
+```
+
+## With Options
+```bash
+python3 mimikatz_parser_enhanced.py output.txt -t 172.16.10.5 -d 172.16.10.5 -o attacks.txt
+```
+
+## Options
+| Flag | Description |
+|------|-------------|
+| `-t` | Target IP/hostname |
+| `-d` | Domain Controller IP |
+| `-o` | Output file (default: stdout) |
+
+## Examples
+```bash
+# Parse and print to screen
+python3 mimikatz_parser_enhanced.py dcsync.txt
+
+# Full options
+python3 mimikatz_parser_enhanced.py dcsync.txt -t 10.10.10.5 -d 10.10.10.1 -o pwn.txt
+
+# Pipe to less
+python3 mimikatz_parser_enhanced.py dcsync.txt | less
+```
+
+## Supported Input
+- `sekurlsa::logonpasswords`
+- `lsadump::dcsync /all /csv`
+- `lsadump::sam`
+- `lsadump::secrets`
+- `lsadump::trust`
+
+## Output Sections
+1. **Summary** - Extracted creds overview
+2. **PTH Attacks** - Impacket, CME, Evil-WinRM
+3. **PTK Attacks** - AES-based (stealthier)
+4. **Lateral Movement** - All 9 methods
+5. **DCSync** - Dump domain hashes
+6. **Golden/Silver Tickets** - Persistence
+7. **Kerberoasting** - Service account hashes
+8. **Persistence** - 10 techniques
+9. **Data Exfil** - LAPS, GPP, BloodHound
+10. **Defense Evasion** - Logs, AMSI, Defender
+11. **Quick Wins** - Copy/paste ready commands
+12. **Hash Cracking** - Hashcat commands
